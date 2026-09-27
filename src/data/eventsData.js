@@ -16,9 +16,13 @@ export const eventsData = [
       { time: '07:30 PM', title: 'BOD Orientation Session' }
     ],
     images: [
-      "/images/BOD_Meet.jpeg"
+      "/images/bod_orientation_1.png",
+      "/images/bod_orientation_2.png",
+      "/images/bod_orientation_3.png",
+      "/images/bod_orientation_4.png",
+      "/images/bod_orientation_5.png"
     ],
-    image: "/images/BOD_Meet.jpeg",
+    image: "/images/bod_orientation_1.png",
     monthYear: "August 2026"
   },
   {
