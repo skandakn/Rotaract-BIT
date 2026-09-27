@@ -74,7 +74,8 @@ export const eventsData = [
       "/images/scoops_and_smiles_1.jpg",
       "/images/scoops_and_smiles_2.jpg",
       "/images/scoops_and_smiles_3.jpg",
-      "/images/scoops_and_smiles_4.jpg"
+      "/images/scoops_and_smiles_4.jpg",
+      "/images/scoops_and_smiles_5.jpg"
     ],
     image: "/images/scoops_and_smiles_1.jpg",
     monthYear: "July 2026"
