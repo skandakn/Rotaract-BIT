@@ -80,12 +80,41 @@ export default function Members() {
   ];
 
   const containerVariants = {
-    hidden: { opacity: 0, y: 15 },
+    hidden: {
+      opacity: 0,
+      rotateY: -90,
+      scale: 0.95
+    },
     visible: {
       opacity: 1,
+      rotateY: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: [0.25, 1, 0.5, 1],
+        staggerChildren: 0.04
+      }
+    },
+    exit: {
+      opacity: 0,
+      rotateY: 90,
+      scale: 0.95,
+      transition: {
+        duration: 0.35,
+        ease: [0.5, 0, 0.75, 0]
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, rotateY: 45, y: 25 },
+    visible: { 
+      opacity: 1, 
+      rotateY: 0, 
       y: 0,
       transition: {
-        staggerChildren: 0.05
+        duration: 0.4,
+        ease: "easeOut"
       }
     }
   };
@@ -128,9 +157,11 @@ export default function Members() {
         {["2025–2026", "2026–2027"].map((year) => {
           const isActive = selectedYear === year;
           return (
-            <button
+            <motion.button
               key={year}
               onClick={() => setSelectedYear(year)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               style={{
                 padding: isMobile ? "8px 20px" : "12px 32px",
                 borderRadius: "30px",
@@ -138,7 +169,7 @@ export default function Members() {
                 fontWeight: "800",
                 cursor: "pointer",
                 border: "2px solid #d91b5c",
-                transition: "all 0.3s ease",
+                transition: "background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease",
                 backgroundColor: isActive ? "#d91b5c" : "transparent",
                 color: isActive ? "#ffffff" : "#d91b5c",
                 boxShadow: isActive ? "0 4px 15px rgba(217, 27, 92, 0.35)" : "none",
@@ -146,43 +177,43 @@ export default function Members() {
               }}
             >
               {year}
-            </button>
+            </motion.button>
           );
         })}
       </div>
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={selectedYear}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: isMobile ? "30px 20px" : "60px 40px",
-            justifyContent: "center",
-            maxWidth: "1150px",
-            margin: "0 auto",
-            padding: "0 5vw"
-          }}
-        >
-          {currentMembers.map(member => (
-            <motion.div
-              key={member.name + member.designation}
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              style={{ width: isMobile ? "160px" : "240px" }}
-            >
-              <TeamCard
-                name={member.name}
-                designation={member.designation}
-                logo_path={member.logo_path}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
-      </AnimatePresence>
+      <div style={{ perspective: "1200px", maxWidth: "1150px", margin: "0 auto", padding: "0 5vw" }}>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedYear}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: isMobile ? "30px 20px" : "60px 40px",
+              justifyContent: "center",
+              transformStyle: "preserve-3d"
+            }}
+          >
+            {currentMembers.map(member => (
+              <motion.div
+                key={member.name + member.designation}
+                variants={cardVariants}
+                style={{ width: isMobile ? "160px" : "240px", transformStyle: "preserve-3d" }}
+              >
+                <TeamCard
+                  name={member.name}
+                  designation={member.designation}
+                  logo_path={member.logo_path}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
