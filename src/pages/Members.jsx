@@ -11,7 +11,7 @@ export default function Members() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  const members = [
+  const members2025 = [
     { designation: "President", name: "Rtr.Vijhortha VS", logo_path: "/images/Vijhortha.png" },
     { name: "Rtr.Varun V", designation: "Vice President", logo_path: "/images/Varun.png" },
     { name: "Rtr.Sharanya S Devadiga", designation: "Club Advisor", logo_path: "/images/Sharanya.png" },
@@ -45,6 +45,38 @@ export default function Members() {
     { name: "Rtr.Prakhyath S", designation: "Web Designer", logo_path: "/images/Prakhyath_s.png" },
   ];
 
+  const members2026 = [
+    { name: "Shreya Srinivas", designation: "President", logo_path: "/images/Shreya.png" },
+    { name: "Prakhyath S", designation: "Secretary", logo_path: "/images/Prakhyath_s.png" },
+    { name: "Pragathi", designation: "Vice President", logo_path: "/images/Pragathi.png" },
+    { name: "Anirudh G", designation: "Joint Secretary", logo_path: "/images/Anirudh.png" },
+    { name: "Harshita Jadhav", designation: "Sergeant", logo_path: "/images/Harshitha.png" },
+    { name: "Medha Balaji", designation: "Treasurer", logo_path: "/images/Medha.png" },
+    { name: "Shihaz Arfath", designation: "Media Lead", logo_path: "/images/Shihaz.png" },
+    { name: "Aadya Singh", designation: "Professional Service Director", logo_path: "/images/shape-person.png" },
+    { name: "Abdullah", designation: "International Service Director", logo_path: "/images/Abdullah.png" },
+    { name: "Bhavesh Patel", designation: "Club Service Director", logo_path: "/images/shape-person.png" },
+    { name: "S. Purvi", designation: "Joint Club Service Director", logo_path: "/images/shape-person.png" },
+    { name: "Srujan N", designation: "Community Service Director", logo_path: "/images/Srujan.png" },
+    { name: "Asmita Majumdar", designation: "Joint Community Service Director", logo_path: "/images/shape-person.png" },
+    { name: "Anish Bandapelly", designation: "Next Gen Director", logo_path: "/images/shape-person.png" },
+    { name: "Adithya Bolar", designation: "PR Director", logo_path: "/images/shape-person.png" },
+    { name: "Varshitha Buddula", designation: "Event Coordinator", logo_path: "/images/Varshita.png" },
+    { name: "Sanskar Khandelwal", designation: "Event Coordinator", logo_path: "/images/shape-person.png" },
+    { name: "Sadgi Gupta", designation: "Event Coordinator", logo_path: "/images/shape-person.png" },
+    { name: "Chethak L N", designation: "Editorial", logo_path: "/images/shape-person.png" },
+    { name: "P. Narain Balaji", designation: "Editorial", logo_path: "/images/shape-person.png" },
+    { name: "Vasundhara V", designation: "Creative", logo_path: "/images/Vasundhara.png" },
+    { name: "Shiyana I D", designation: "Creative", logo_path: "/images/shape-person.png" },
+    { name: "Yuvraj Mehta", designation: "Marketing", logo_path: "/images/shape-person.png" },
+    { name: "Koushik K L", designation: "Marketing", logo_path: "/images/shape-person.png" },
+    { name: "Ruthu Bhairavi C", designation: "Marketing", logo_path: "/images/shape-person.png" },
+    { name: "MD Sofi", designation: "Photography", logo_path: "/images/shape-person.png" },
+    { name: "Aishwarya Darshini S", designation: "Design Team", logo_path: "/images/Aishwarya.png" },
+    { name: "Harshini M", designation: "Design Team", logo_path: "/images/shape-person.png" },
+    { name: "Skanda K N", designation: "Web Designer", logo_path: "/images/shape-person.png" }
+  ];
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -66,13 +98,12 @@ export default function Members() {
         />
       </div>
 
-
       <div style={{
         display: "flex",
         justifyContent: "center",
         borderBottom: "1px solid rgba(128,128,128,0.2)",
         maxWidth: "1000px",
-        margin: "0 auto 60px",
+        margin: "0 auto 40px",
         paddingTop: "20px"
       }}>
         <div style={{ padding: "15px 30px", color: "var(--text-primary)", fontWeight: "700", borderBottom: "3px solid #d91b5c", fontSize: "1.25rem", textTransform: "uppercase" }}>
@@ -80,6 +111,84 @@ export default function Members() {
         </div>
       </div>
 
+      {/* 2025–2026 Section */}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        margin: "20px auto 40px",
+        maxWidth: "1000px",
+        padding: "0 20px"
+      }}>
+        <div style={{ flex: 1, height: "1px", background: "rgba(128,128,128,0.2)" }} />
+        <h2 style={{
+          margin: "0 20px",
+          padding: "8px 24px",
+          borderRadius: "30px",
+          background: "rgba(217, 27, 92, 0.1)",
+          border: "1px solid rgba(217, 27, 92, 0.3)",
+          color: "#d91b5c",
+          fontSize: isMobile ? "1.2rem" : "1.5rem",
+          fontWeight: "800",
+          letterSpacing: "1px",
+          textAlign: "center"
+        }}>
+          2025–2026
+        </h2>
+        <div style={{ flex: 1, height: "1px", background: "rgba(128,128,128,0.2)" }} />
+      </div>
+
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: isMobile ? "30px 20px" : "60px 40px",
+          justifyContent: "center",
+          maxWidth: "1150px",
+          margin: "0 auto 60px",
+          padding: "0 5vw"
+        }}
+      >
+        {members2025.map(member => (
+          <motion.div key={member.name} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} style={{ width: isMobile ? "160px" : "240px" }}>
+            <TeamCard
+              name={member.name}
+              designation={member.designation}
+              logo_path={member.logo_path}
+            />
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* 2026–2027 Section */}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        margin: "60px auto 40px",
+        maxWidth: "1000px",
+        padding: "0 20px"
+      }}>
+        <div style={{ flex: 1, height: "1px", background: "rgba(128,128,128,0.2)" }} />
+        <h2 style={{
+          margin: "0 20px",
+          padding: "8px 24px",
+          borderRadius: "30px",
+          background: "rgba(217, 27, 92, 0.1)",
+          border: "1px solid rgba(217, 27, 92, 0.3)",
+          color: "#d91b5c",
+          fontSize: isMobile ? "1.2rem" : "1.5rem",
+          fontWeight: "800",
+          letterSpacing: "1px",
+          textAlign: "center"
+        }}>
+          2026–2027
+        </h2>
+        <div style={{ flex: 1, height: "1px", background: "rgba(128,128,128,0.2)" }} />
+      </div>
 
       <motion.div
         variants={containerVariants}
@@ -95,8 +204,8 @@ export default function Members() {
           padding: "0 5vw"
         }}
       >
-        {members.map(member => (
-          <motion.div key={member.name} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} style={{ width: isMobile ? "160px" : "240px" }}>
+        {members2026.map(member => (
+          <motion.div key={member.name + member.designation} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} style={{ width: isMobile ? "160px" : "240px" }}>
             <TeamCard
               name={member.name}
               designation={member.designation}
