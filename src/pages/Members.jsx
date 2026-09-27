@@ -76,7 +76,7 @@ export default function Members() {
     { name: "Chethak L N", designation: "Editorial", logo_path: "/images/Chetak_LN.jpg" },
     { name: "P. Narain Balaji", designation: "Editorial", logo_path: "/images/Narain_Balaji.jpg" },
     { name: "Vasundhara V", designation: "Creative", logo_path: "/images/Vasundhara_V.jpg" },
-    { name: "Shiyana I D", designation: "Creative", logo_path: "/images/shape-person.png" },
+    { name: "Shiyana Devaiah", designation: "Creative", logo_path: "/images/Shiyana_Devaiah.jpg" },
     { name: "Yuvraj Mehta", designation: "Marketing", logo_path: "/images/Yuvraj_Mehta.jpg" },
     { name: "Koushik K L", designation: "Marketing", logo_path: "/images/Koushik_KL.jpg" },
     { name: "Ruthu Bhairavi C", designation: "Marketing", logo_path: "/images/Ruthu_Bhairavi.jpg" },
