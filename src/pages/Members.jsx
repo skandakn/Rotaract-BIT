@@ -82,39 +82,50 @@ export default function Members() {
   const containerVariants = {
     hidden: {
       opacity: 0,
-      rotateY: -90,
-      scale: 0.95
+      rotateY: -120,
+      scale: 0.8,
+      filter: "blur(10px)"
     },
     visible: {
       opacity: 1,
       rotateY: 0,
       scale: 1,
+      filter: "blur(0px)",
       transition: {
-        duration: 0.6,
-        ease: [0.25, 1, 0.5, 1],
-        staggerChildren: 0.04
+        type: "spring",
+        stiffness: 140,
+        damping: 18,
+        staggerChildren: 0.03
       }
     },
     exit: {
       opacity: 0,
-      rotateY: 90,
-      scale: 0.95,
+      rotateY: 120,
+      scale: 0.8,
+      filter: "blur(10px)",
       transition: {
-        duration: 0.35,
-        ease: [0.5, 0, 0.75, 0]
+        duration: 0.3,
+        ease: "easeInOut"
       }
     }
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, rotateY: 45, y: 25 },
+    hidden: { 
+      opacity: 0, 
+      rotateY: 90, 
+      y: 50,
+      scale: 0.75
+    },
     visible: { 
       opacity: 1, 
       rotateY: 0, 
       y: 0,
+      scale: 1,
       transition: {
-        duration: 0.4,
-        ease: "easeOut"
+        type: "spring",
+        stiffness: 200,
+        damping: 18
       }
     }
   };
@@ -145,44 +156,68 @@ export default function Members() {
         </div>
       </div>
 
-      {/* Side-by-Side Year Selector Tabs */}
+      {/* Ultra-Cool Sliding Tab Bar */}
       <div style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        gap: isMobile ? "12px" : "24px",
         margin: "0 auto 50px",
         padding: "0 20px"
       }}>
-        {["2025–2026", "2026–2027"].map((year) => {
-          const isActive = selectedYear === year;
-          return (
-            <motion.button
-              key={year}
-              onClick={() => setSelectedYear(year)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              style={{
-                padding: isMobile ? "8px 20px" : "12px 32px",
-                borderRadius: "30px",
-                fontSize: isMobile ? "0.95rem" : "1.15rem",
-                fontWeight: "800",
-                cursor: "pointer",
-                border: "2px solid #d91b5c",
-                transition: "background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease",
-                backgroundColor: isActive ? "#d91b5c" : "transparent",
-                color: isActive ? "#ffffff" : "#d91b5c",
-                boxShadow: isActive ? "0 4px 15px rgba(217, 27, 92, 0.35)" : "none",
-                outline: "none"
-              }}
-            >
-              {year}
-            </motion.button>
-          );
-        })}
+        <div style={{
+          display: "inline-flex",
+          background: "rgba(128, 128, 128, 0.08)",
+          padding: "6px",
+          borderRadius: "40px",
+          border: "1px solid rgba(217, 27, 92, 0.2)",
+          backdropFilter: "blur(10px)",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.05)",
+          gap: "8px"
+        }}>
+          {["2025–2026", "2026–2027"].map((year) => {
+            const isActive = selectedYear === year;
+            return (
+              <button
+                key={year}
+                onClick={() => setSelectedYear(year)}
+                style={{
+                  position: "relative",
+                  padding: isMobile ? "10px 22px" : "14px 36px",
+                  borderRadius: "35px",
+                  fontSize: isMobile ? "0.95rem" : "1.15rem",
+                  fontWeight: "800",
+                  cursor: "pointer",
+                  border: "none",
+                  backgroundColor: "transparent",
+                  color: isActive ? "#ffffff" : "var(--text-primary)",
+                  transition: "color 0.3s ease",
+                  outline: "none",
+                  zIndex: 1
+                }}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="activeYearIndicator"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      borderRadius: "35px",
+                      background: "linear-gradient(135deg, #d91b5c 0%, #ff4b8b 100%)",
+                      boxShadow: "0 4px 20px rgba(217, 27, 92, 0.45)",
+                      zIndex: -1
+                    }}
+                    transition={{ type: "spring", stiffness: 350, damping: 28 }}
+                  />
+                )}
+                {year}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      <div style={{ perspective: "1200px", maxWidth: "1150px", margin: "0 auto", padding: "0 5vw" }}>
+      {/* 3D Perspective Card Grid */}
+      <div style={{ perspective: "1500px", maxWidth: "1150px", margin: "0 auto", padding: "0 5vw" }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedYear}
@@ -202,6 +237,13 @@ export default function Members() {
               <motion.div
                 key={member.name + member.designation}
                 variants={cardVariants}
+                whileHover={{ 
+                  scale: 1.08, 
+                  rotateY: 10,
+                  rotateX: -5,
+                  z: 30,
+                  transition: { type: "spring", stiffness: 300, damping: 15 }
+                }}
                 style={{ width: isMobile ? "160px" : "240px", transformStyle: "preserve-3d" }}
               >
                 <TeamCard
