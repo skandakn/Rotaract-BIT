@@ -1,16 +1,18 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import React, { useState, useEffect } from "react";
 
 import TeamCard from "../components/TeamCard";
 
 export default function Members() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [selectedYear, setSelectedYear] = useState("2025–2026");
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   const members2025 = [
     { designation: "President", name: "Rtr.Vijhortha VS", logo_path: "/images/Vijhortha.png" },
     { name: "Rtr.Varun V", designation: "Vice President", logo_path: "/images/Varun.png" },
@@ -78,14 +80,17 @@ export default function Members() {
   ];
 
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, y: 15 },
     visible: {
       opacity: 1,
+      y: 0,
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0.05
       }
     }
   };
+
+  const currentMembers = selectedYear === "2025–2026" ? members2025 : members2026;
 
   return (
     <div style={{ background: "var(--bg-primary)", minHeight: "100vh", paddingBottom: "100px" }}>
@@ -103,7 +108,7 @@ export default function Members() {
         justifyContent: "center",
         borderBottom: "1px solid rgba(128,128,128,0.2)",
         maxWidth: "1000px",
-        margin: "0 auto 40px",
+        margin: "0 auto 30px",
         paddingTop: "20px"
       }}>
         <div style={{ padding: "15px 30px", color: "var(--text-primary)", fontWeight: "700", borderBottom: "3px solid #d91b5c", fontSize: "1.25rem", textTransform: "uppercase" }}>
@@ -111,109 +116,73 @@ export default function Members() {
         </div>
       </div>
 
-      {/* 2025–2026 Section */}
+      {/* Side-by-Side Year Selector Tabs */}
       <div style={{
         display: "flex",
-        alignItems: "center",
         justifyContent: "center",
-        margin: "20px auto 40px",
-        maxWidth: "1000px",
+        alignItems: "center",
+        gap: isMobile ? "12px" : "24px",
+        margin: "0 auto 50px",
         padding: "0 20px"
       }}>
-        <div style={{ flex: 1, height: "1px", background: "rgba(128,128,128,0.2)" }} />
-        <h2 style={{
-          margin: "0 20px",
-          padding: "8px 24px",
-          borderRadius: "30px",
-          background: "rgba(217, 27, 92, 0.1)",
-          border: "1px solid rgba(217, 27, 92, 0.3)",
-          color: "#d91b5c",
-          fontSize: isMobile ? "1.2rem" : "1.5rem",
-          fontWeight: "800",
-          letterSpacing: "1px",
-          textAlign: "center"
-        }}>
-          2025–2026
-        </h2>
-        <div style={{ flex: 1, height: "1px", background: "rgba(128,128,128,0.2)" }} />
+        {["2025–2026", "2026–2027"].map((year) => {
+          const isActive = selectedYear === year;
+          return (
+            <button
+              key={year}
+              onClick={() => setSelectedYear(year)}
+              style={{
+                padding: isMobile ? "8px 20px" : "12px 32px",
+                borderRadius: "30px",
+                fontSize: isMobile ? "0.95rem" : "1.15rem",
+                fontWeight: "800",
+                cursor: "pointer",
+                border: "2px solid #d91b5c",
+                transition: "all 0.3s ease",
+                backgroundColor: isActive ? "#d91b5c" : "transparent",
+                color: isActive ? "#ffffff" : "#d91b5c",
+                boxShadow: isActive ? "0 4px 15px rgba(217, 27, 92, 0.35)" : "none",
+                outline: "none"
+              }}
+            >
+              {year}
+            </button>
+          );
+        })}
       </div>
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: isMobile ? "30px 20px" : "60px 40px",
-          justifyContent: "center",
-          maxWidth: "1150px",
-          margin: "0 auto 60px",
-          padding: "0 5vw"
-        }}
-      >
-        {members2025.map(member => (
-          <motion.div key={member.name} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} style={{ width: isMobile ? "160px" : "240px" }}>
-            <TeamCard
-              name={member.name}
-              designation={member.designation}
-              logo_path={member.logo_path}
-            />
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* 2026–2027 Section */}
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        margin: "60px auto 40px",
-        maxWidth: "1000px",
-        padding: "0 20px"
-      }}>
-        <div style={{ flex: 1, height: "1px", background: "rgba(128,128,128,0.2)" }} />
-        <h2 style={{
-          margin: "0 20px",
-          padding: "8px 24px",
-          borderRadius: "30px",
-          background: "rgba(217, 27, 92, 0.1)",
-          border: "1px solid rgba(217, 27, 92, 0.3)",
-          color: "#d91b5c",
-          fontSize: isMobile ? "1.2rem" : "1.5rem",
-          fontWeight: "800",
-          letterSpacing: "1px",
-          textAlign: "center"
-        }}>
-          2026–2027
-        </h2>
-        <div style={{ flex: 1, height: "1px", background: "rgba(128,128,128,0.2)" }} />
-      </div>
-
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: isMobile ? "30px 20px" : "60px 40px",
-          justifyContent: "center",
-          maxWidth: "1150px",
-          margin: "0 auto",
-          padding: "0 5vw"
-        }}
-      >
-        {members2026.map(member => (
-          <motion.div key={member.name + member.designation} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} style={{ width: isMobile ? "160px" : "240px" }}>
-            <TeamCard
-              name={member.name}
-              designation={member.designation}
-              logo_path={member.logo_path}
-            />
-          </motion.div>
-        ))}
-      </motion.div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={selectedYear}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: isMobile ? "30px 20px" : "60px 40px",
+            justifyContent: "center",
+            maxWidth: "1150px",
+            margin: "0 auto",
+            padding: "0 5vw"
+          }}
+        >
+          {currentMembers.map(member => (
+            <motion.div
+              key={member.name + member.designation}
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              style={{ width: isMobile ? "160px" : "240px" }}
+            >
+              <TeamCard
+                name={member.name}
+                designation={member.designation}
+                logo_path={member.logo_path}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
