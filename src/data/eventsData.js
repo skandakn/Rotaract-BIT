@@ -18,6 +18,7 @@ export const eventsData = [
     images: [
       "/images/bod_orientation_1.png",
       "/images/bod_orientation_2.png",
+      "/images/bod_orientation_6.png",
       "/images/bod_orientation_3.png",
       "/images/bod_orientation_4.png",
       "/images/bod_orientation_5.png"
@@ -70,9 +71,12 @@ export const eventsData = [
       { time: '06:00 PM', title: 'Fellowship & Ice Cream Meet' }
     ],
     images: [
-      "/images/Dry_Fruit_Delight.jpeg"
+      "/images/scoops_and_smiles_1.jpg",
+      "/images/scoops_and_smiles_2.jpg",
+      "/images/scoops_and_smiles_3.jpg",
+      "/images/scoops_and_smiles_4.jpg"
     ],
-    image: "/images/Dry_Fruit_Delight.jpeg",
+    image: "/images/scoops_and_smiles_1.jpg",
     monthYear: "July 2026"
   },
   {
