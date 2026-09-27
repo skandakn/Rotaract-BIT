@@ -29,7 +29,7 @@ export const eventsData = [
   {
     id: "act-yuvaa-2026",
     title: "YUVAA 2026 – Youth United for Vision, Action & Advocacy",
-    category: "Activity",
+    category: "Meeting",
     date: new Date("2026-08-12"),
     location: "Google Meet (Online)",
     description: "The Interact–Rotaract Youth Conference focused on youth leadership, advocacy, governance and youth engagement.",
