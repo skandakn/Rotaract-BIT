@@ -5,7 +5,14 @@ import TeamCard from "../components/TeamCard";
 
 export default function Members() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [selectedYear, setSelectedYear] = useState("2025–2026");
+  const [selectedYear, setSelectedYear] = useState("2026–2027");
+  const [direction, setDirection] = useState(1);
+
+  const handleYearChange = (year) => {
+    if (year === selectedYear) return;
+    setDirection(year === "2026–2027" ? 1 : -1);
+    setSelectedYear(year);
+  };
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -80,52 +87,62 @@ export default function Members() {
   ];
 
   const containerVariants = {
-    hidden: {
+    hidden: (dir) => ({
       opacity: 0,
-      rotateY: -120,
-      scale: 0.8,
-      filter: "blur(10px)"
-    },
+      rotateY: dir >= 0 ? 80 : -80,
+      rotateZ: dir >= 0 ? -6 : 6,
+      x: dir >= 0 ? 140 : -140,
+      z: -320,
+      scale: 0.85,
+      filter: "blur(8px)"
+    }),
     visible: {
       opacity: 1,
       rotateY: 0,
+      rotateZ: 0,
+      x: 0,
+      z: 0,
       scale: 1,
       filter: "blur(0px)",
       transition: {
-        type: "spring",
-        stiffness: 140,
-        damping: 18,
-        staggerChildren: 0.03
+        duration: 0.85,
+        ease: [0.16, 1, 0.3, 1],
+        staggerChildren: 0.025
       }
     },
-    exit: {
+    exit: (dir) => ({
       opacity: 0,
-      rotateY: 120,
-      scale: 0.8,
-      filter: "blur(10px)",
+      rotateY: dir >= 0 ? -80 : 80,
+      rotateZ: dir >= 0 ? 6 : -6,
+      x: dir >= 0 ? -140 : 140,
+      z: -320,
+      scale: 0.85,
+      filter: "blur(8px)",
       transition: {
-        duration: 0.3,
-        ease: "easeInOut"
+        duration: 0.6,
+        ease: [0.7, 0, 0.84, 0]
       }
-    }
+    })
   };
 
   const cardVariants = {
-    hidden: { 
+    hidden: (dir) => ({ 
       opacity: 0, 
-      rotateY: 90, 
-      y: 50,
-      scale: 0.75
-    },
+      rotateY: dir >= 0 ? 45 : -45, 
+      rotateX: 8,
+      z: -120,
+      scale: 0.8
+    }),
     visible: { 
       opacity: 1, 
       rotateY: 0, 
-      y: 0,
+      rotateX: 0,
+      z: 0,
       scale: 1,
       transition: {
         type: "spring",
-        stiffness: 200,
-        damping: 18
+        stiffness: 190,
+        damping: 20
       }
     }
   };
@@ -179,7 +196,7 @@ export default function Members() {
             return (
               <button
                 key={year}
-                onClick={() => setSelectedYear(year)}
+                onClick={() => handleYearChange(year)}
                 style={{
                   position: "relative",
                   padding: isMobile ? "10px 22px" : "14px 36px",
@@ -216,11 +233,12 @@ export default function Members() {
         </div>
       </div>
 
-      {/* 3D Perspective Card Grid */}
-      <div style={{ perspective: "1500px", maxWidth: "1150px", margin: "0 auto", padding: "0 5vw" }}>
-        <AnimatePresence mode="wait">
+      {/* 3D Earth-Orbit Perspective Grid */}
+      <div style={{ perspective: "1600px", maxWidth: "1150px", margin: "0 auto", padding: "0 5vw" }}>
+        <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={selectedYear}
+            custom={direction}
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -236,12 +254,13 @@ export default function Members() {
             {currentMembers.map(member => (
               <motion.div
                 key={member.name + member.designation}
+                custom={direction}
                 variants={cardVariants}
                 whileHover={{ 
                   scale: 1.08, 
-                  rotateY: 10,
-                  rotateX: -5,
-                  z: 30,
+                  rotateY: 12,
+                  rotateX: -6,
+                  z: 35,
                   transition: { type: "spring", stiffness: 300, damping: 15 }
                 }}
                 style={{ width: isMobile ? "160px" : "240px", transformStyle: "preserve-3d" }}
