@@ -40,7 +40,10 @@ export const eventsData = [
     ],
     images: [
       "/images/yuvaa_2026_3.png",
+      "/images/yuvaa_2026_5.png",
+      "/images/yuvaa_2026_4.png",
       "/images/yuvaa_2026_1.png",
+      "/images/yuvaa_2026_6.png",
       "/images/yuvaa_2026_2.png"
     ],
     image: "/images/yuvaa_2026_3.png",
